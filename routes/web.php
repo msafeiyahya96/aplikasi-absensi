@@ -36,4 +36,6 @@ Route::middleware(['auth', 'ceklevel:admin'])->group(function() {
 Route::middleware(['auth', 'ceklevel:karyawan'])->group(function() {
     Route::get('/absensiMasuk', [AbsensiController::class, 'index'])->name('absensiMasuk');
     Route::post('/simpanAbsensi', [AbsensiController::class, 'store'])->name('simpanAbsensi');
+    Route::get('/absensiPulang', [AbsensiController::class, 'pulang'])->name('absensiPulang');
+    Route::post('/simpanAbsensiPulang', [AbsensiController::class, 'absensiPulang'])->name('simpanAbsensiPulang');
 });

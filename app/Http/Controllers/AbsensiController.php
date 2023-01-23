@@ -19,6 +19,10 @@ class AbsensiController extends Controller
         return view('absensi.absensi-masuk');
     }
 
+    public function pulang() {
+        return view('absensi.absensi-pulang');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,6 +61,32 @@ class AbsensiController extends Controller
         }
 
         return redirect('absensiMasuk');
+    }
+
+    public function absensiPulang() {
+        $timezone   = 'Asia/Jakarta';
+        $date       = new DateTime('now', new DateTimeZone($timezone));
+        $tanggal    = $date->format('Y-m-d');
+        $localtime  = $date->format('H:i:s');
+
+        // mencari user sesuai id dan tanggal
+        $absensi    = Absensi::where([
+            ['user_id', '=', auth()->user()->id],
+            ['tanggal', '=', $tanggal]
+        ])->first();
+        
+        // Data yang akan di update
+        $dt         = [
+            'jam_pulang'    => $localtime,
+            'jam_kerja'     => date('H:i:s', strtotime($localtime)-strtotime($absensi->jam_masuk))
+        ];
+
+        if ($absensi->jam_pulang == "") { // Jika jam pulang belum ada / kosong
+            $absensi->update($dt);
+            return redirect(route('absensiPulang'));
+        } else {
+            dd("Absensi Pulang Sudah Ada");
+        }
     }
 
     /**
