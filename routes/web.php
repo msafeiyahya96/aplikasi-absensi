@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AbsensiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,14 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'ceklevel:admin,karyawan'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
+
+Route::middleware(['auth', 'ceklevel:admin'])->group(function() {
     Route::get('/registrasi', [LoginController::class, 'registrasi'])->name('registrasi');
     Route::post('/createRegistrasi', [LoginController::class, 'createRegistrasi'])->name('createRegistrasi');
+});
+
+Route::middleware(['auth', 'ceklevel:karyawan'])->group(function() {
+    Route::get('/absensiMasuk', [AbsensiController::class, 'index'])->name('absensiMasuk');
+    Route::post('/simpanAbsensi', [AbsensiController::class, 'store'])->name('simpanAbsensi');
 });
