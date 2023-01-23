@@ -24,29 +24,31 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-clock"></i>
-                        <p>
-                            Absensi
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <p>Absensi Masuk</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <p>Absensi Pulang</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (auth()->user()->level == "karyawan")
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-clock"></i>
+                            <p>
+                                Absensi
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    <p>Absensi Masuk</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <p>Absensi Pulang</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>    
+                @endif
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -56,19 +58,29 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if (auth()->user()->level == "karyawan")
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Absensi Per Karyawan</p>
                             </a>
                         </li>
+                        @endif
+                        @if (auth()->user()->level == "admin")
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Absensi Seluruh Karyawan</p>
+                                <p>Absensi All Karyawan</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="fas fa-th nav-icon"></i>
+                        <p>Logout</p>
+                    </a>
                 </li>
             </ul>
         </nav>
