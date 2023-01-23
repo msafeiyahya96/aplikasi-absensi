@@ -14,7 +14,7 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div> --}}
             <div class="info">
-                <a href="#" class="d-block">Muhammad Safei Yahya</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 
@@ -76,6 +76,14 @@
                         @endif
                     </ul>
                 </li>
+                @if (auth()->user()->level == "admin")
+                <li class="nav-item">
+                    <a href="{{ route('registrasi') }}" class="nav-link">
+                        <i class="fas fa-user nav-icon"></i>
+                        <p>Registrasi Karyawan</p>
+                    </a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
                         <i class="fas fa-th nav-icon"></i>
